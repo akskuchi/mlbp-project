@@ -76,11 +76,11 @@ def predict_genres_decision_tree():
         logger.error(training_error)
 
     try:
-        prediction = classifier.predict(test_data_features.head(5))
+        prediction = classifier.predict(test_data_features)
         pandas.DataFrame({'Sample_id': range(1, len(prediction) + 1), 'Sample_label': prediction}).set_index('Sample_id').to_csv(
-            '../accuracy_output.csv',
-            sep=' ')
-        logger.info('prediction complete, results exported to file: accuracy.csv')
+            '../accuracy_output_tree.csv',
+            sep=',')
+        logger.info('prediction complete, results exported to file: ../accuracy_output_tree.csv')
     except Exception as prediction_error:
         logger.error(prediction_error)
 
@@ -103,11 +103,11 @@ def predict_genres_logistic_regression():
         logger.error(training_error)
 
     try:
-        prediction = logistic_regressor.predict(test_data_features.head(1))
+        prediction = logistic_regressor.predict(test_data_features)
         pandas.DataFrame({'Sample_id': range(1, len(prediction) + 1), 'Sample_label': prediction}).set_index('Sample_id').to_csv(
-            '../accuracy_output.csv',
-            sep=' ')
-        logger.info('prediction complete, results exported to file: accuracy.csv')
+            '../accuracy_output_regression.csv',
+            sep=',')
+        logger.info('prediction complete, results exported to file: ../accuracy_output_regression.csv')
     except Exception as prediction_error:
         logger.error(prediction_error)
 
