@@ -16,6 +16,8 @@ logger.addHandler(handler)
 train_data_features = pandas.DataFrame()
 train_data_labels = pandas.DataFrame()
 test_data_features = pandas.DataFrame()
+pre_test_features = pandas.DataFrame()
+pre_test_labels = pandas.DataFrame()
 
 
 def read_train_data_features(file_location):
@@ -76,11 +78,12 @@ def predict_genres_decision_tree():
         logger.error(training_error)
 
     try:
-        prediction = classifier.predict(test_data_features.head(5))
+        prediction = classifier.predict(pre_test_features)
+        validate_predictions(prediction)
         pandas.DataFrame({'Sample_id': range(1, len(prediction) + 1), 'Sample_label': prediction}).set_index('Sample_id').to_csv(
             '../accuracy_output.csv',
             sep=' ')
-        logger.info('prediction complete, results exported to file: accuracy.csv')
+        logger.info('prediction complete, results exported to file: ../accuracy_output.csv')
     except Exception as prediction_error:
         logger.error(prediction_error)
 
@@ -103,13 +106,37 @@ def predict_genres_logistic_regression():
         logger.error(training_error)
 
     try:
-        prediction = logistic_regressor.predict(test_data_features.head(1))
+        prediction = logistic_regressor.predict(pre_test_features)
+        validate_predictions(prediction)
         pandas.DataFrame({'Sample_id': range(1, len(prediction) + 1), 'Sample_label': prediction}).set_index('Sample_id').to_csv(
             '../accuracy_output.csv',
             sep=' ')
-        logger.info('prediction complete, results exported to file: accuracy.csv')
+        logger.info('prediction complete, results exported to file: ../accuracy_output.csv')
     except Exception as prediction_error:
         logger.error(prediction_error)
+
+
+def split_training_data():
+    """
+    pull out some percentage of the training data for pre-testing purpose (1308 : 30% data)
+    """
+    global train_data_features, train_data_labels, pre_test_features, pre_test_labels
+    pre_test_features = train_data_features[:1308]
+    train_data_features = train_data_features[1308:]
+
+    pre_test_labels = train_data_labels[:1308]
+    train_data_labels = train_data_labels[1308:]
+
+
+def validate_predictions(prediction):
+    match = 0
+    global pre_test_labels
+    pre_test_labels_values = pre_test_labels.values
+    for index in range(numpy.size(prediction)):
+        if prediction[index] == pre_test_labels_values[index]:
+            match += 1
+
+    logger.info('accuracy of prediction: %f' % float(match / numpy.size(prediction)))
 
 
 if __name__ == '__main__':
@@ -117,6 +144,9 @@ if __name__ == '__main__':
     read_train_data_features('resources/train_data.csv')
     read_train_data_labels('resources/train_labels.csv')
     read_test_data_features('resources/test_data.csv')
+
+    # for cross validation
+    split_training_data()
 
     # model and predict
     predict_genres_decision_tree()
