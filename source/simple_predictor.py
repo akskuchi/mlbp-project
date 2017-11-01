@@ -25,7 +25,7 @@ def read_train_data_features(file_location):
     logger.info('reading features of songs from the training data')
     try:
         global train_data_features
-        train_data_features = pandas.read_csv(os.path.join(os.path.dirname(__file__), '..', file_location))
+        train_data_features = pandas.read_csv(os.path.join(os.path.dirname(__file__), '..', file_location), header=None)
         logger.info('shape of the train data features set: (%s, %s)' % train_data_features.shape)
     except Exception as read_exception:
         logger.error(read_exception)
@@ -38,7 +38,7 @@ def read_train_data_labels(file_location):
     logger.info('reading corresponding labels of songs from the training data')
     try:
         global train_data_labels
-        train_data_labels = pandas.read_csv(os.path.join(os.path.dirname(__file__), '..', file_location))
+        train_data_labels = pandas.read_csv(os.path.join(os.path.dirname(__file__), '..', file_location), header=None)
         logger.info('shape of the train data labels set: %d with %d distinct song genres' %
                     (train_data_labels.shape[0], numpy.unique(train_data_labels).shape[0]))
     except Exception as read_exception:
@@ -52,7 +52,7 @@ def read_test_data_features(file_location):
     logger.info('reading features of songs for the test data')
     try:
         global test_data_features
-        test_data_features = pandas.read_csv(os.path.join(os.path.dirname(__file__), '..', file_location))
+        test_data_features = pandas.read_csv(os.path.join(os.path.dirname(__file__), '..', file_location), header=None)
         logger.info('shape of the test data features set: (%s, %s)' % test_data_features.shape)
     except Exception as read_exception:
         logger.error(read_exception)
