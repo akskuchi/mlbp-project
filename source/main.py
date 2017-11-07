@@ -20,21 +20,18 @@ y = y.values.ravel()
 
 pl = pipeline.Pipeline(
     [('scaler', preprocessing.StandardScaler()),
+     # at the moment the pipeline performs better without
+     # PCA but is left here for reference. For optimal performance,
+     # comment the PCA line before running the code.
      ('PCA', decomposition.PCA(n_components=0.8, svd_solver='full')),
      ('classifier', linear_model.LogisticRegression(random_state=0))])
 
-kfold = model_selection.StratifiedKFold(
-    n_splits=5, shuffle=True, random_state=0)
+scores = model_selection.cross_val_score(
+    estimator=pl, X=X, y=y, cv=5, n_jobs=-1)
 
-scores = []
-
-for train, test in kfold.split(X, y):
-    pl.fit(X[train, :], y[train])
-    score = pl.score(X[test, :], y[test])
-    scores.append(score)
-
-print('scores fold k folds: {}'.format(scores))
-print('accuracy: {}'.format(np.mean(scores)))
+print('cross validation scores: {}'.format(scores))
+print('cross validation accuracy: {} +/- {}'
+      .format(np.mean(scores), np.std(scores)))
 
 pl.fit(X, y)
 
@@ -52,7 +49,7 @@ acc_path = os.path.join(out_path, 'accuracy.csv')
 logloss_path = os.path.join(out_path, 'logloss.csv')
 
 pred_accuracy.index += 1
-pred_logloss += 1
+pred_logloss.index += 1
 
 pred_accuracy.to_csv(acc_path, header=['Sample_label'],
                      index_label='Sample_id')
