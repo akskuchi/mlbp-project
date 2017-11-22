@@ -1,77 +1,102 @@
 import numpy as np
-import pandas as pd
 from sklearn import preprocessing, linear_model, pipeline,\
-    model_selection, decomposition
+    model_selection
 
-import os
+import load_data
+import write_data
 
-resource_path = os.path.join(
-    os.path.abspath('..'),
-    'resources')
+write_output = False
+accuracy = True
+logloss = True
 
-paths = [os.path.join(resource_path, p) for p in
-         ['train_data.csv', 'train_labels.csv', 'test_data.csv']]
+X, y, test_data = load_data.load()
 
-X, y, test_data = [pd.read_csv(p, header=None)
-                   for p in paths]
-
-X = X.values
-y = y.values.ravel()
-
+# common pipeline for accuracy and log-loss
 pl = pipeline.Pipeline([
     ('scaler', preprocessing.StandardScaler()),
-    # at the moment the pipeline performs better without
-    # PCA but it is left here for reference. For optimal performance
-    # comment the PCA line before running the code.
-    ('PCA', decomposition.PCA(n_components=0.8, svd_solver='full')),
-    ('classifier', linear_model.LogisticRegression())
+    ('classifier', None)
 ])
 
+# common k-fold object
+kf = model_selection.StratifiedKFold(
+    n_splits=3,
+    shuffle=True,
+    random_state=1
+)
 
-scores_accuracy = model_selection.cross_val_score(
-    estimator=pl, X=X, y=y, scoring='accuracy', cv=5, n_jobs=-1)
+############### ACCURACY ###############
 
-# TODO: neg_log_loss seems to be negated value of log_loss
-# because sklearn requires greater value -> better fit.
-# The negation is easy to undo but also 1 must be subtracted
-# to get output that is similar to the cost given by kaggle logloss
-# scorer. Why is that?
-scores_logloss = -model_selection.cross_val_score(
-    estimator=pl, X=X, y=y, scoring='neg_log_loss', cv=5, n_jobs=-1) - 1
+if accuracy:
 
-print('\n')
-print('---------- ACCURACY ----------')
-# print('CV scores: {}'.format(scores_accuracy))
-print('Average: {0:.3f} +/- {1:.4f}'
-      .format(np.mean(scores_accuracy), np.std(scores_accuracy)))
-print('------------------------------')
-print('---------- LOG_LOSS ----------')
-print('CV scores: {}'.format(scores_logloss))
-print('Average: {0:.3f} +/- {1:.4f}'
-      .format(np.mean(scores_logloss), np.std(scores_logloss)))
-print('------------------------------')
+    gs_acc = model_selection.GridSearchCV(
+        estimator=pl,
+        param_grid=dict(
+            classifier=[
+                linear_model.LogisticRegression(
+                    random_state=1
+                )
+            ],
+            classifier__C=[1]  # [0.1, 0.2, 0.5, 0.8, 1, 1.2, 1.5, 2, 5]
+        ),
+        scoring='accuracy',
+        cv=kf)
+
+    # Use 3x3 cross-validation to estimate accuracy
+    scores_accuracy = model_selection.cross_val_score(
+        estimator=gs_acc, X=X, y=y, scoring='accuracy',
+        cv=kf
+    )
+
+    # use all available data to fit a model
+    gs_acc.fit(X, y)
+
+    print('\n')
+    print('---------- ACCURACY ----------')
+    print('CV scores: {}'.format(scores_accuracy))
+    print('Average: {0:.3f} +/- {1:.4f}'
+          .format(np.mean(scores_accuracy), np.std(scores_accuracy)))
+    print(gs_acc.best_estimator_)
+    print('------------------------------')
+
+############### LOGLOSS ###############
+
+if logloss:
+
+    gs_log = model_selection.GridSearchCV(
+        estimator=pl,
+        param_grid=dict(
+            classifier=[
+                linear_model.LogisticRegression(
+                    random_state=1,
+                    solver='newton-cg',
+                    multi_class='multinomial'
+                )
+            ],
+            classifier__C=[1]
+        ),
+        scoring='neg_log_loss',
+        cv=kf
+    )
+
+    # Use 3x3 cross-validation to estimate neg. log-loss
+    scores_logloss = model_selection.cross_val_score(
+        gs_log, X, y,
+        scoring='neg_log_loss',
+        cv=kf
+    )
+
+    # use all available data to fit a model
+    gs_log.fit(X, y)
+
+    print('---------- LOG_LOSS ----------')
+    print('CV scores: {}'.format(scores_logloss))
+    print('Average: {0:.3f} +/- {1:.4f}'
+          .format(np.mean(scores_logloss), np.std(scores_logloss)))
+    print(gs_log.best_estimator_)
+    print('------------------------------')
 
 
-pl.fit(X, y)
-
-pred_accuracy = pd.DataFrame(pl.predict(test_data))
-pred_logloss = pd.DataFrame(pl.predict_proba(test_data))
-
-out_path = os.path.join(
-    os.path.abspath('..'),
-    'output')
-
-if not os.path.exists(out_path):
-    os.makedirs(out_path)
-
-acc_path = os.path.join(out_path, 'accuracy.csv')
-logloss_path = os.path.join(out_path, 'logloss.csv')
-
-pred_accuracy.index += 1
-pred_logloss.index += 1
-
-pred_accuracy.to_csv(acc_path, header=['Sample_label'],
-                     index_label='Sample_id')
-pred_logloss.to_csv(logloss_path,
-                    header=['Class_{}'.format(i) for i in range(1, 11)],
-                    index_label='Sample_id')
+if write_output and accuracy and logloss:
+    pred_accuracy = gs_acc.predict(test_data)
+    pred_logloss = gs_log.predict_proba(test_data)
+    write_data.write(pred_accuracy, pred_logloss)
