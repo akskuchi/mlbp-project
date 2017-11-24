@@ -2,6 +2,7 @@ import numpy as np
 from sklearn import preprocessing, linear_model, pipeline, \
     model_selection
 from sklearn.ensemble import VotingClassifier
+from sklearn.model_selection import train_test_split
 from sklearn.semi_supervised import LabelSpreading
 from sklearn.svm import SVC
 
@@ -27,19 +28,23 @@ kf = model_selection.StratifiedKFold(
     random_state=1
 )
 
+
 ############### ACCURACY ###############
 
 def semi_supervised_model():
     global X, y, kf
+    X, _X, y, _y = train_test_split(X, y, test_size=0.33)
     X = np.concatenate((X, test_data))
-    y = np.concatenate((y, np.repeat([0], len(test_data))))
+    y = np.concatenate((y, np.repeat([-1], len(test_data))))
     print('shape of features: ', X.shape)
     print('shape of labels: ', y.shape)
-
-    label_prop_model = LabelSpreading(kernel='rbf', n_neighbors=25, gamma=0.25)
+    # 0.51121
+    # label_prop_model = LabelSpreading(kernel='rbf', gamma=0.000000000000002, n_jobs=-1, max_iter=1000)
+    # 0.54444
+    label_prop_model = LabelSpreading(kernel='knn', n_neighbors=300, n_jobs=-1, max_iter=1000)
     label_prop_model.fit(X, y)
 
-    print('[semi-supervised] accuracy using train data: ', label_prop_model.score(X, y))
+    print('[semi-supervised] accuracy using the cross validation split data: ', label_prop_model.score(_X, _y))
     # TODO: submit for accuracy
     # label_prop_model.predict(test_data)
     # TODO: submit for log-loss
@@ -48,9 +53,9 @@ def semi_supervised_model():
 
 def ensemble_model():
     estimators = []
-    model1 = linear_model.LogisticRegression()
+    model1 = linear_model.LogisticRegression(C=0.1)
     estimators.append(('logistic', model1))
-    model2 = SVC(max_iter=-1, probability=True)
+    model2 = SVC(max_iter=-1, probability=True, kernel='poly', degree=2)
     estimators.append(('svm', model2))
 
     ensemble = VotingClassifier(estimators, voting='soft')
@@ -84,8 +89,7 @@ if accuracy:
     gs_acc.fit(X, y)
 
     # using ensemble
-    # kfold = model_selection.KFold(n_splits=5, random_state=7)
-    # scores_accuracy = model_selection.cross_val_score(ensemble_model(), X, y, cv=kfold, scoring='accuracy')
+    # scores_accuracy = model_selection.cross_val_score(ensemble_model(), X, y, cv=kf, scoring='accuracy')
 
     print('\n')
     print('---------- ACCURACY ----------')
