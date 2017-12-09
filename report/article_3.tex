@@ -292,7 +292,7 @@ For splitting the data into folds we used stratified process of preserving the p
 
 \section{Results}
 
-Performance measures of the above experiments when evaluated with the test data.
+Performance measures of the above experiments when evaluated with the test data. Eventual Kaggle testing accuracy is $0.653$ and log-loss of $0.175$
 
 \subsection{Accuracy, Log-Loss statistics}
 \begin{itemize}
@@ -306,8 +306,8 @@ Performance measures of the above experiments when evaluated with the test data.
       % \cmidrule(r){1-2}
       modelling strategy & solver & accuracy & loss \\
       \midrule
-      ovr & sag & $0.658$ & $0.12$ \\
-      multinomial & sag & $0.653$ & $0.17$ \\
+      ovr & sag & $0.653$ & $0.175$ \\
+      multinomial & sag & $0.653$ & $0.177$ \\
       ovr & liblinear & $0.650$ & $0.21$ \\
       ovr & lbfgs & $0.646$ & $0.26$ \\
       ovr & newton-cg & $0.646$ & $0.26$ \\
@@ -327,8 +327,8 @@ Performance measures of the above experiments when evaluated with the test data.
       %			\cmidrule(r){1-2}
       modelling strategy & kernel & accuracy & loss \\
       \midrule
-      multinomial & rbf & $0.636$ & $0.07$ \\
-      ovr & rbf & $0.636$ & $0.07$ \\
+      multinomial & rbf & $0.636$ & $0.27$ \\
+      ovr & rbf & $0.636$ & $0.19$ \\
       multinomial & linear & $0.607$ & $0.20$ \\
       ovr & linear & $0.607$ & $0.20$ \\
       ovr & poly (degree 3) & $0.567$ & $0.36$ \\
@@ -337,7 +337,7 @@ Performance measures of the above experiments when evaluated with the test data.
     % \label{tab:label}
   \end{table}
   \item Ensemble classifier with best parametric combination of logistic regression, SVC and voting strategy produces
-  $$accuracy = 0.631, loss = 0.09$$
+  $$accuracy = 0.631, loss = 0.29$$
   \item Semi-supervised classifier with label spreading:
   \begin{table}[H]
     \caption{metrics on test data (semi-supervised)}
@@ -348,7 +348,7 @@ Performance measures of the above experiments when evaluated with the test data.
       %			\cmidrule(r){1-2}
       kernel & attribute & accuracy & loss\\
       \midrule
-      knn & neighbours(300) & $0.533$ & $0.14$ \\
+      knn & neighbours(300) & $0.533$ & $0.188$ \\
       rbf & $\gamma=0.001$ & $0.612$ & $0.29$ \\
       \bottomrule
     \end{tabular}
