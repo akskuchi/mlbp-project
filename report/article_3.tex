@@ -7,7 +7,7 @@
 % http://www.LaTeXTemplates.com
 %
 % Original author:
-% Mathias Legrand (legrand.mathias@gmail.com) 
+% Mathias Legrand (legrand.mathias@gmail.com)
 % With extensive modifications by:
 % Vel (vel@latextemplates.com)
 %
@@ -74,7 +74,7 @@
 %----------------------------------------------------------------------------------------
 
 \begin{document}
-	\boldmath
+  \boldmath
 
 \flushbottom % Makes all text pages the same height
 
@@ -99,45 +99,68 @@
 
 \section{Data Analysis}
 
-%\begin{figure*}[ht]\centering % Using \begin{figure*} makes the figure take up the entire width of the page
-%\includegraphics[width=\linewidth]{view}       
-%\caption{Wide Picture}
-%\label{fig:view}
-%\end{figure*}
+Before diving deep into applying some machine learning algorithms it is useful
+to explore the data a bit to get a general idea of the features and quirks of
+the data set. Our data analysis process began by printing the values for some randomly
+selected data points. The raw data does not make much sense and it is
+challenging to try to find some correlation between certain classes and some
+selected features. However, in that small sample a disproportionate share of the
+labels were \textit{Pop\_Rock} or class $1$. The next logical step was to take a
+closer look at the class distribution of the given data and see if the observed
+unbalanced distribution is just randomness or a feature of the data set. The
+class distribution has been visualized in figure \ref{fig:dist-hist} and the
+dominance of class $1$ can be clearly seen. This imbalance might be due to
+having two popular music generes, pop and rock, under one label but it can also
+be just a feature of the data set.
+% is is appropriate to discuss generalization of the class distribution here?
+Intuitively the disproportionate class distribution makes sense but for
+practical applications that have to work on any unlabeled data set, any
+assumptions can hardly be made.
 
-\lipsum[4] % Dummy text
+\begin{figure}[H]
+  \includegraphics[width=\linewidth]{class-dist-hist.png}
+  \caption{Distribution of classes in the given data set}
+  \label{fig:dist-hist}
+\end{figure}
 
-\begin{equation}
-\cos^3 \theta =\frac{1}{4}\cos\theta+\frac{3}{4}\cos 3\theta
-\label{eq:refname2}
-\end{equation}
+Another interesting feature of the data set is the low number of samples with
+relation to the amount of features. Since there are 4363 songs and each of them
+have 264 features, it is obvious that the dataset is nowhere near sufficient to
+explore all combinations of all features. Most likely the whole space is not
+needed to represent all common music generes but in spite of this, the size of
+the data set might be the limiting factor. We could overcome this by finding a
+subset of the original features that preserve the information of 264 features.
+Since the feature space includes multiple statistics of rhythm and chroma, there
+could be some correlation that could be exploited to reduce the dimensionality.
+The correlation heatmap for the training data in figure \ref{fig:heatmap} shows
+that there is indeed some correlation and especially the seven rhythm statistics
+are nicely separable.
 
-\lipsum[5] % Dummy text
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{heatmap.png}
+  \caption{Correlation heatmap}
+  \label{fig:heatmap}
+\end{figure}
 
-\begin{enumerate}[noitemsep] % [noitemsep] removes whitespace between the items for a compact look
-\item First item in a list
-\item Second item in a list
-\item Third item in a list
-\end{enumerate}
+The heatmap is a nice visualization but it would be hard to manually engineer a
+new feature space that captures the details that matter. For the actual
+dimensionality reduction task principal component analysis is a much better
+candidate.
+% TODO: should we have some reference to PCA details/implementation here?
+The variance explained by PCA is illustrated in figure \ref{fig:pca}. The figure
+suggests that the first few principal components explains the majority of the
+variance and with 10 principal components almost all the variance is explained.
+The heatmap also indicates that there could be some redundant
+features so a more interpretable dimensionality reduction technique would be to
+just discard features that do not have sufficient contribution to the total variance.
 
-\subsection{Subsection}
+\begin{figure}[H]
+  \includegraphics[width=\linewidth]{pca.png}
+  \caption{Variance explained by principal components}
+  \label{fig:pca}
+\end{figure}
 
-\lipsum[6] % Dummy text
-
-\paragraph{Paragraph} \lipsum[7] % Dummy text
-\paragraph{Paragraph} \lipsum[8] % Dummy text
-
-\subsection{Subsection}
-
-%\lipsum[9] % Dummy text
-
-%\begin{figure}[ht]\centering
-%\includegraphics[width=\linewidth]{results}
-%\caption{In-text Picture}
-%\label{fig:results}
-%\end{figure}
-
-Reference to Figure \ref{fig:results}.
 
 \section{Methods and Experiments} % The \section*{} command stops section numbering
 
@@ -149,15 +172,15 @@ Reference to Figure \ref{fig:results}.
 
 Our model predicted the probabilities of different possible genres (labels) corresponding to a given feature space (see the data analysis section). For each of the multi-classification modelling techniques [one-vs-one - $ovo$, one-vs-all - $ovr$], we empirically used various algorithms as solvers (like stochastic average gradient) and consecutively varied the following parameters.
 \begin{itemize}
-	\item Maximum iterations for convergence ($100-900$)
-	\item Initial class weights (balanced weighing, initializing to $1$)
-	\item Weight regularization strength ($0.1-0.9$)
-	\item Tolerance of error across runs 
+  \item Maximum iterations for convergence ($100-900$)
+  \item Initial class weights (balanced weighing, initializing to $1$)
+  \item Weight regularization strength ($0.1-0.9$)
+  \item Tolerance of error across runs
 \end{itemize}
 in focus of improving on the accuracy of and reducing loss of the classification.
 
-To optimize the hyper-parameters for modelling the logistic regression classifier we made use of the exhaustive Grid-search cross validation technique.  
- 
+To optimize the hyper-parameters for modelling the logistic regression classifier we made use of the exhaustive Grid-search cross validation technique.
+
 \subsection{Support Vector Machines}~\\
 \underline{Motivation:} As the feature-space is of a relatively higher dimensionality, we decided to try out support vector machines to improve on the statistics achieved using the logistic model.
 
@@ -165,17 +188,17 @@ Initially, we modelled a linear support vector classifier which used set of hype
 
 While empirically using both $ovo$ and the $ovr$ techniques, we tested various kernels:
 \begin{itemize}
-	\item Gaussian radial basis function
-	\item Polynomial (degree 3)
-	\item Sigmoid
+  \item Gaussian radial basis function
+  \item Polynomial (degree 3)
+  \item Sigmoid
 \end{itemize}
 
 For each of the kernels we varied the following parameters:
 \begin{itemize}
-	\item Maximum iterations for convergence ($100-300$)
-	\item Initial class weights (balanced weighing, initializing to $1$)
-	\item Weight regularization strength ($0.1-0.9$)
-	\item Tolerance of error across runs 
+  \item Maximum iterations for convergence ($100-300$)
+  \item Initial class weights (balanced weighing, initializing to $1$)
+  \item Weight regularization strength ($0.1-0.9$)
+  \item Tolerance of error across runs
 \end{itemize}
 
 To optimize the hyper-parameters for modelling the support vector classifier we made use of the exhaustive Grid-search cross validation technique.
@@ -190,31 +213,31 @@ We used the \textbf{voting classifier} strategy to combine the above classifiers
 
 We chose the label-spreading strategy over label propagation as it is more robust to noise{\cite{label-spreading}}. Modelling steps:
 \begin{itemize}
-	\item[\textit{Step 1}] Splitting the labelled (train) data as based on some percentage (we chose $\frac{1}{3}^{rd}$ of the it for validation)
-	\item[\textit{Step 2}] Merging the split of labelled data from [step-1] with the unlabelled data.
-	\item[\textit{Step 3}] Training the classifier/kernel chosen for label-spreading with respective parameters (listed below)
-	\item[\textit{Step 4}] Scoring/validating the trained model using the split test data from [step-1]
-	\item[\textit{Step 5}] Predicting the genres for unlabelled (actual test) data
+  \item[\textit{Step 1}] Splitting the labelled (train) data as based on some percentage (we chose $\frac{1}{3}^{rd}$ of the it for validation)
+  \item[\textit{Step 2}] Merging the split of labelled data from [step-1] with the unlabelled data.
+  \item[\textit{Step 3}] Training the classifier/kernel chosen for label-spreading with respective parameters (listed below)
+  \item[\textit{Step 4}] Scoring/validating the trained model using the split test data from [step-1]
+  \item[\textit{Step 5}] Predicting the genres for unlabelled (actual test) data
 \end{itemize}
 
 We varied the following parameters over runs:
 \begin{itemize}
-	\item Kernels ($rbf$, k-nearest neighbours). Varying the gamma parameter (b/w $0.1-00001$) and the number of neighbours attribute (b/w $50-300$) respectively.
-	\item Maximum iterations for convergence ($100-300$)
+  \item Kernels ($rbf$, k-nearest neighbours). Varying the gamma parameter (b/w $0.1-00001$) and the number of neighbours attribute (b/w $50-300$) respectively.
+  \item Maximum iterations for convergence ($100-300$)
 \end{itemize}
 
 \subsection*{Other models}~\\
-Apart from the above mentioned classifiers, we experimented with more models that did not pass our benchmarks for both the accuracy and loss metrics. 
+Apart from the above mentioned classifiers, we experimented with more models that did not pass our benchmarks for both the accuracy and loss metrics.
 \begin{itemize}
-	\item Naive Bayes'
-	\item Decision trees
-	\item Random forests
+  \item Naive Bayes'
+  \item Decision trees
+  \item Random forests
 \end{itemize}
 
 Though we initially considered reducing the dimensionality by performing principal component analysis, after some substantial scrutiny of the feature space we dropped it. The rhythm bands, pitch classes and the timbre coefficients we spread out across the statistics to discard.
 
 \subsection*{Performance Metrics}~\\
-Evaluation of all the models designed was done using the $k$-fold cross validation technique (with $k=5$). 
+Evaluation of all the models designed was done using the $k$-fold cross validation technique (with $k=5$).
 
 For splitting the data into folds we used stratified process of preserving the percentage of samples for each genre thereby enabling fair evaluation.
 %------------------------------------------------
@@ -228,68 +251,68 @@ Performance measures of the above experiments when evaluated with the test data.
 
 \subsection{Accuracy, Log-Loss statistics}
 \begin{itemize}
-	\item Logistic Regression Classifier across various values for its parameters. Results for the best 5 combinations:
-	\begin{table}[H]
-		\caption{metrics on test data (LR)}
-		\centering
-		\begin{tabular}{llrr}
-			\toprule
+  \item Logistic Regression Classifier across various values for its parameters. Results for the best 5 combinations:
+  \begin{table}[H]
+    \caption{metrics on test data (LR)}
+    \centering
+    \begin{tabular}{llrr}
+      \toprule
 %			\multicolumn{2}{c}{Name} \\
 %			\cmidrule(r){1-2}
-			modelling strategy & solver & accuracy & loss \\ 
-			\midrule
-			ovr & sag & $0.658$ & $0.12$ \\
-			multinomial & sag & $0.653$ & $0.17$ \\
-			ovr & liblinear & $0.650$ & $0.21$ \\
-			ovr & lbfgs & $0.646$ & $0.26$ \\
-			ovr & newton-cg & $0.646$ & $0.26$ \\
-			\bottomrule
-		\end{tabular}
-		\label{tab:label}
-	\end{table}
-	\item Support vector classifiers across various values for its parameters. Results for the best 5 combinations:
-	\begin{table}[H]
-		\caption{metrics on test data (SVC)}
-		\centering
-		\begin{tabular}{llrr}
-			\toprule
-			%			\multicolumn{2}{c}{Name} \\
-			%			\cmidrule(r){1-2}
-			modelling strategy & kernel & accuracy & loss \\ 
-			\midrule
-			multinomial & rbf & $0.636$ & $0.07$ \\
-			ovr & rbf & $0.636$ & $0.07$ \\
-			multinomial & linear & $0.607$ & $0.20$ \\
-			ovr & linear & $0.607$ & $0.20$ \\
-			ovr & poly (degree 3) & $0.567$ & $0.36$ \\
-			\bottomrule
-		\end{tabular}
-		\label{tab:label}
-	\end{table}
-	\item Ensemble classifier with best parametric combination of logistic regression, SVC and voting strategy produces
-	$$accuracy = 0.631, loss = 0.09$$
-	\item Semi-supervised classifier with label spreading:
-	\begin{table}[H]
-		\caption{metrics on test data (semi-supervised)}
-		\centering
-		\begin{tabular}{llrr}
-			\toprule
-			%			\multicolumn{2}{c}{Name} \\
-			%			\cmidrule(r){1-2}
-			kernel & attribute & accuracy & loss\\ 
-			\midrule
-			knn & neighbours(300) & $0.533$ & $0.14$ \\
-			rbf & $\gamma=0.001$ & $0.612$ & $0.29$ \\
-			\bottomrule
-		\end{tabular}
-		\label{tab:label}
-	\end{table}
+      modelling strategy & solver & accuracy & loss \\
+      \midrule
+      ovr & sag & $0.658$ & $0.12$ \\
+      multinomial & sag & $0.653$ & $0.17$ \\
+      ovr & liblinear & $0.650$ & $0.21$ \\
+      ovr & lbfgs & $0.646$ & $0.26$ \\
+      ovr & newton-cg & $0.646$ & $0.26$ \\
+      \bottomrule
+    \end{tabular}
+    \label{tab:label}
+  \end{table}
+  \item Support vector classifiers across various values for its parameters. Results for the best 5 combinations:
+  \begin{table}[H]
+    \caption{metrics on test data (SVC)}
+    \centering
+    \begin{tabular}{llrr}
+      \toprule
+      %			\multicolumn{2}{c}{Name} \\
+      %			\cmidrule(r){1-2}
+      modelling strategy & kernel & accuracy & loss \\
+      \midrule
+      multinomial & rbf & $0.636$ & $0.07$ \\
+      ovr & rbf & $0.636$ & $0.07$ \\
+      multinomial & linear & $0.607$ & $0.20$ \\
+      ovr & linear & $0.607$ & $0.20$ \\
+      ovr & poly (degree 3) & $0.567$ & $0.36$ \\
+      \bottomrule
+    \end{tabular}
+    \label{tab:label}
+  \end{table}
+  \item Ensemble classifier with best parametric combination of logistic regression, SVC and voting strategy produces
+  $$accuracy = 0.631, loss = 0.09$$
+  \item Semi-supervised classifier with label spreading:
+  \begin{table}[H]
+    \caption{metrics on test data (semi-supervised)}
+    \centering
+    \begin{tabular}{llrr}
+      \toprule
+      %			\multicolumn{2}{c}{Name} \\
+      %			\cmidrule(r){1-2}
+      kernel & attribute & accuracy & loss\\
+      \midrule
+      knn & neighbours(300) & $0.533$ & $0.14$ \\
+      rbf & $\gamma=0.001$ & $0.612$ & $0.29$ \\
+      \bottomrule
+    \end{tabular}
+    \label{tab:label}
+  \end{table}
 \end{itemize}
 
 \subsection{Confusion matrix}
 The following confusion matrix represents the accuracy of classification. It is evident that the prediction is directly influenced by the frequency of respective genres in the training data.
 \begin{figure}[H]
-	\includegraphics[width=\linewidth]{confusion-matrix.jpg}
+  \includegraphics[width=\linewidth]{confusion-matrix.jpg}
 \end{figure}
 
 The matrix entry $i$, $j$ is the number of songs actually in genre $i$, but predicted to be genre $j$. Darker the blue, accurate the classification.
@@ -306,7 +329,7 @@ Thank you! Google!
 %----------------------------------------------------------------------------------------
 \phantomsection
 \begin{thebibliography}{1}
-\bibitem{label-spreading} 
+\bibitem{label-spreading}
 \href{http://scikit-learn.org/stable/modules/generated/sklearn.semi\_supervised.LabelSpreading.html}{semi-supervised learning,}
 \end{thebibliography}
 
