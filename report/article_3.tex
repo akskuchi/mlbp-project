@@ -181,7 +181,7 @@ We used pandas framework to read and write the csv-files and relied
 heavily on scikit-learn to build a robust machine learning pipeline that could
 effortlessly be used to try different preprocessing steps and machine learning
 algorithms with sufficient hyperparameters. An example of such pipeline using
-logistic regression classifier is provided in appendix [ref]
+logistic regression classifier is provided in appendix \ref{sklearn-example}
 % TODO: add code to appendix and refer to it
 
 As was mentioned in the previous section, the set of labeled data points is
@@ -218,7 +218,7 @@ with a real-life machine learning problem.
 \subsection{Logistic Regression}~\\
 \underline{Motivation:} Logistic regression though by nature the default for binary classification, the fact that it can be extended for multi-class models was the motivation for choosing it.
 
-Our model predicted the probabilities of different possible genres (labels) corresponding to a given feature space (see the data analysis section). For each of the multi-classification modelling techniques [one-vs-one - $ovo$, one-vs-all - $ova$], we empirically used various algorithms as solvers (like stochastic average gradient) and consecutively varied the following parameters.
+Our model predicted the probabilities of different possible genres (labels) corresponding to a given feature space (see the data analysis section). For each of the multi-classification modelling techniques [one-vs-one - $ovo$, one-vs-all - $ovr$], we empirically used various algorithms as solvers (like stochastic average gradient) and consecutively varied the following parameters.
 \begin{itemize}
   \item Maximum iterations for convergence ($100-900$)
   \item Initial class weights (balanced weighing, initializing to $1$)
@@ -371,8 +371,9 @@ The matrix entry $i$, $j$ is the number of songs actually in genre $i$, but pred
 
 \section{Appendices}
 % TODO: for appendix and reference list we don't want two columns
+% also there is \appendix, is it more appropriate?
 
-\subsection{Pipeline using scikit-learn}
+\subsection{Pipeline using scikit-learn} \label{sklearn-example}
 
 The following code snippet illustrates how easy it is to set up a machine
 learning pipeline in scikit-learn assuming \textit{load\_data} is a function that
@@ -380,20 +381,26 @@ loads the data set. \textit{LogisticRegressionCV} is a class that trains a
 logistic regression classifier using all the listed C-values and uses the
 best-performing classifier to calculate accuracy on the test set. A similar
 class that can be used to optimize hyperparameters in scikit-learn is
-\textit{GridSearchCV}.           %TODO ref to scikit-learn docs
+\textit{GridSearchCV} \cite{gridsearchcv}.
 
 \lstinputlisting[language=Python]{pipeline.py}
-
-
 
 %----------------------------------------------------------------------------------------
 %	REFERENCE LIST
 %----------------------------------------------------------------------------------------
 
 \phantomsection
-\begin{thebibliography}{1}
+\begin{thebibliography}{2}
+  % TODO: I would say it is better to have plaintext links instead of href
+  % anyways let's make these consistent before submitting
+  % (see todo about making appendix and references normal 1 column page)
+
 \bibitem{label-spreading}
-\href{http://scikit-learn.org/stable/modules/generated/sklearn.semi\_supervised.LabelSpreading.html}{semi-supervised learning,}
+  \href{http://scikit-learn.org/stable/modules/generated/sklearn.semi\_supervised.LabelSpreading.html}{semi-supervised learning,}
+
+\bibitem{gridsearchcv}
+  \textit{GridSearchCV}, \\
+  \texttt{http://scikit-learn.org/stable/modules/generated/sklearn.model\_selection.GridSearchCV.html}
 \end{thebibliography}
 
 %----------------------------------------------------------------------------------------
