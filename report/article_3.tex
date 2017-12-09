@@ -25,7 +25,7 @@
 \usepackage[english]{babel} % Specify a different language here - english by default
 
 \usepackage{lipsum} % Required to insert dummy text. To be removed otherwise
-
+\usepackage{float}
 %----------------------------------------------------------------------------------------
 %	COLUMNS
 %----------------------------------------------------------------------------------------
@@ -213,7 +213,7 @@ Apart from the above mentioned classifiers, we experimented with more models tha
 
 Though we initially considered reducing the dimensionality by performing principal component analysis, after some substantial scrutiny of the feature space we dropped it. The rhythm bands, pitch classes and the timbre coefficients we spread out across the statistics to discard.
 
-\subsection*{Evaluation Methodology}~\\
+\subsection*{Performance Metrics}~\\
 Evaluation of all the models designed was done using the $k$-fold cross validation technique (with $k=5$). 
 
 For splitting the data into folds we used stratified process of preserving the percentage of samples for each genre thereby enabling fair evaluation.
@@ -221,57 +221,75 @@ For splitting the data into folds we used stratified process of preserving the p
 
 %------------------------------------------------
 
+
 \section{Results}
 
-\lipsum[10] % Dummy text
+Performance measures of the above experiments when evaluated with the test data.
 
-\subsection{Subsection}
-
-\lipsum[11] % Dummy text
-
-\begin{table}[hbt]
-\caption{Table of Grades}
-\centering
-\begin{tabular}{llr}
-\toprule
-\multicolumn{2}{c}{Name} \\
-\cmidrule(r){1-2}
-First name & Last Name & Grade \\
-\midrule
-John & Doe & $7.5$ \\
-Richard & Miles & $2$ \\
-\bottomrule
-\end{tabular}
-\label{tab:label}
-\end{table}
-
-\subsubsection{Subsubsection}
-
-\lipsum[12] % Dummy text
-
-\begin{description}
-\item[Word] Definition
-\item[Concept] Explanation
-\item[Idea] Text
-\end{description}
-
-\subsubsection{Subsubsection}
-
-\lipsum[13] % Dummy text
-
-\begin{itemize}[noitemsep] % [noitemsep] removes whitespace between the items for a compact look
-\item First item in a list
-\item Second item in a list
-\item Third item in a list
+\subsection{Accuracy, Log-Loss statistics}
+\begin{itemize}
+	\item Logistic Regression Classifier across various values for its parameters. Results for the best 5 combinations:
+	\begin{table}[H]
+		\caption{Accuracy on test data (LR)}
+		\centering
+		\begin{tabular}{lllr}
+			\toprule
+%			\multicolumn{2}{c}{Name} \\
+%			\cmidrule(r){1-2}
+			modelling strategy & solver & weights & accuracy\\ 
+			\midrule
+			ovr & sag & None & $0.658$ \\
+			multinomial & sag & None & $0.653$ \\
+			ovr & liblinear & None & $0.650$ \\
+			ovr & lbfgs & None & $0.646$ \\
+			ovr & newton-cg & None & $0.646$ \\
+			\bottomrule
+		\end{tabular}
+		\label{tab:label}
+	\end{table}
+	\item Support vector classifiers across various values for its parameters. Results for the best 5 combinations:
+	\begin{table}[H]
+		\caption{Accuracy on test data (SVC)}
+		\centering
+		\begin{tabular}{lllr}
+			\toprule
+			%			\multicolumn{2}{c}{Name} \\
+			%			\cmidrule(r){1-2}
+			modelling strategy & kernel & weights & accuracy\\ 
+			\midrule
+			multinomial & rbf & None & $0.636$ \\
+			ovr & rbf & None & $0.636$ \\
+			multinomial & linear & None & $0.607$ \\
+			ovr & linear & None & $0.607$ \\
+			ovr & poly (degree 3) & None & $0.567$ \\
+			\bottomrule
+		\end{tabular}
+		\label{tab:label}
+	\end{table}
+	\item Ensemble classifier with best parametric combination of logistic regression, SVC and voting strategy produces an accuracy:
+	$$=0.631$$
+	\item Semi-supervised classifier with label spreading:
+	\begin{table}[H]
+		\caption{Accuracy on test data (semi-supervised)}
+		\centering
+		\begin{tabular}{llr}
+			\toprule
+			%			\multicolumn{2}{c}{Name} \\
+			%			\cmidrule(r){1-2}
+			kernel & attribute & accuracy\\ 
+			\midrule
+			knn & neighbours(300) & $0.533$ \\
+			rbf & $\gamma=0.001$ & $0.612$ \\
+			\bottomrule
+		\end{tabular}
+		\label{tab:label}
+	\end{table}
 \end{itemize}
 
-\subsubsection{Subsubsection}
-
-\lipsum[14] % Dummy text
-
-\subsection{Subsection}
-
-\lipsum[15-23] % Dummy text
+\subsection{Confusion matrix}
+\begin{figure}[H]
+	\includegraphics[width=\linewidth]{confusion-matrix.jpg}
+\end{figure}
 
 \section{Discussion}
 
