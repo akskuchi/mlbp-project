@@ -98,21 +98,22 @@
 
 Before diving deep into applying some machine learning algorithms it is useful
 to explore the data a bit to get a general idea of the features and quirks of
-the data set. Our data analysis process began by printing the values for some randomly
-selected data points. The raw data does not make much sense and it is
-challenging to try to find some correlation between certain classes and some
-selected features. However, in that small sample a disproportionate share of the
-labels were \textit{Pop\_Rock} or class $1$. The next logical step was to take a
-closer look at the class distribution of the given data and see if the observed
-unbalanced distribution is just randomness or a feature of the data set. The
-class distribution has been visualized in figure \ref{fig:dist-hist} and the
-dominance of class $1$ can be clearly seen. This imbalance might be due to
-having two popular music generes, pop and rock, under one label but it can also
-be just a feature of the data set.
-% TODO: is is appropriate to discuss generalization of the class distribution here?
-Intuitively the disproportionate class distribution makes sense but for
-practical applications that have to work on any unlabeled data set, any
-assumptions can hardly be made.
+the data set. Initially we only knew that the datasets consists of 4363 songs
+which are divided into 264 features. Each song is assigned to a class that
+corresponds to a music genre. Our data analysis process began by printing the
+values for some randomly selected data points. The raw data does not make much
+sense and it is challenging to try to find some correlation between certain
+classes and some selected features. However, in that small sample a
+disproportionate share of the labels were \textit{Pop\_Rock} or class $1$. The
+next logical step was to take a closer look at the class distribution of the
+given data and see if the observed unbalanced distribution is just randomness or
+a feature of the data set. The class distribution has been visualized in figure
+\ref{fig:dist-hist} and the dominance of class $1$ can be clearly seen. This
+imbalance might be due to having two popular music genres, pop and rock, under
+one label but it can also be just a feature of the data set. Intuitively the
+disproportionate class distribution can be justified but for practical
+applications that have to work on any unlabeled data set, such assumptions
+cannot be made.
 
 \begin{figure}[H]
   \includegraphics[width=\linewidth]{class-dist-hist.png}
@@ -124,7 +125,7 @@ Another interesting feature of the data set is the low number of samples with
 relation to the amount of features. Since there are 4363 songs and each of them
 have 264 features, it is obvious that the dataset is nowhere near sufficient to
 explore all combinations of all features. Most likely the whole space is not
-needed to represent all common music generes but in spite of this, the size of
+needed to represent all common music genres but in spite of this, the size of
 the data set might be the limiting factor. We could overcome this by finding a
 subset of the original features that preserve the information of 264 features.
 Since the feature space includes multiple statistics of rhythm and chroma, there
@@ -176,7 +177,6 @@ heavily on scikit-learn to build a robust machine learning pipeline that could
 effortlessly be used to try different preprocessing steps and machine learning
 algorithms with sufficient hyperparameters. An example of such pipeline using
 logistic regression classifier is provided in appendix \ref{sklearn-example}
-% TODO: add code to appendix and refer to it
 
 As was mentioned in the previous section, the set of labeled data points is
 relatively small when considering the classification task. Therefore we decided
@@ -186,10 +186,10 @@ unbalanced class weights. There is no single configuration which we used since w
 had to do some modifications in order to find the right balance between variance
 and performance. One of these configurations, for example, was to use 5x3
 cross-validation where the data was split into five folds and then the data of
-the four training
-folds was once again split into three folds out of which two were used to train the
-model and one was used to optimize the hyperparameters. This approach resulted
-in good hyperparameter values and an accurate estimation of the performance.
+the four training folds was once again split into three folds out of which two
+were used to train the model and one was used to optimize the hyperparameters.
+This approach resulted in good hyperparameter values and an accurate estimation
+of the performance.
 
 All in all, our pipeline consists of reading the csv file, splitting the data into
 appropriate training and validation sets, standardizing the data, possibly reducing
@@ -202,14 +202,23 @@ overlooked some classifier that has been rated against an undesirable or
 unrepresentative validation set. However, this approach is more likely to work
 with a real-life machine learning problem.
 
-\subsection{Algorithms and methods}
+\subsection{Performance Metrics}
 
-% TODO: List the following algos/methods as subsubsections?
+Our goal is to accurately predict the genre of a song but also to have highest
+possible confidence in our prediction. For the first goal a single label must be
+predicted for each unlabeled song and the performance is measured by categorical
+accuracy which is illustrated in equation \ref{eq:accuracy}
+
+\begin{equation} \label{eq:accuracy}
+  \text{accuracy} = \frac{| y_{\text{true}} = y_{\text{predicted}}|}{N}
+\end{equation}
+
+\subsection{Algorithms and methods}
 
 %\addcontentsline{toc}{section}{Methods and Experiments} % Adds this section to the table of contents
 \underline{Fundamental intuition for choosing models:} Multi-class classification being the underlying aspect of the problem statement, we turned to learning models which constitute this feature.
 
-\subsection{Logistic Regression}~\\
+\subsubsection{Logistic Regression}~\\
 \underline{Motivation:} Logistic regression though by nature the default for binary classification, the fact that it can be extended for multi-class models was the motivation for choosing it.
 
 Our model predicted the probabilities of different possible genres (labels) corresponding to a given feature space (see the data analysis section). For each of the multi-classification modelling techniques [one-vs-one - $ovo$, one-vs-all - $ovr$], we empirically used various algorithms as solvers (like stochastic average gradient) and consecutively varied the following parameters.
@@ -223,7 +232,7 @@ in focus of improving on the accuracy of and reducing loss of the classification
 
 To optimize the hyper-parameters for modelling the logistic regression classifier we made use of the exhaustive Grid-search cross validation technique.
 
-\subsection{Support Vector Machines}~\\
+\subsubsection{Support Vector Machines}~\\
 \underline{Motivation:} As the feature-space is of a relatively higher dimensionality, we decided to try out support vector machines to improve on the statistics achieved using the logistic model.
 
 Initially, we modelled a linear support vector classifier which used set of hyperplanes for learning the training data. As we did not observe any drastic improvements in the statistics, we further analysed the data and decided to experiment with the non-linear modelling of the support vector machines.
@@ -244,12 +253,12 @@ For each of the kernels we varied the following parameters:
 \end{itemize}
 
 To optimize the hyper-parameters for modelling the support vector classifier we made use of the exhaustive Grid-search cross validation technique.
-\subsection{Ensemble Classifier}~\\
+\subsubsection{Ensemble Classifier}~\\
 \underline{Motivation:} After experimenting with the above two models for sometime, we figured that logistic regression classifiers were good with accuracy metric and SVMs were minimizing on the log-loss statistic. So we decided to ensemble them together to understand if we can get the better of both worlds.
 
 We used the \textbf{voting classifier} strategy to combine the above classifiers using a majority vote to predict the genres. We used both hard and the average predicted probabilities voting (soft vote) methods and found that the hard voting produced better results.
 
-\subsection{Semi-Supervised Classifier}~\\
+\subsubsection{Semi-Supervised Classifier}~\\
 
 \underline{Motivation:} After not being able to further deduce any meaningful direct relationship between the feature-space, we decided to try the semi-supervised learning methodology.
 
@@ -268,7 +277,7 @@ We varied the following parameters over runs:
   \item Maximum iterations for convergence ($100-300$)
 \end{itemize}
 
-\subsection*{Other models}~\\
+\subsubsection*{Other models}~\\
 Apart from the above mentioned classifiers, we experimented with more models that did not pass our benchmarks for both the accuracy and loss metrics.
 \begin{itemize}
   \item Naive Bayes'
@@ -278,10 +287,6 @@ Apart from the above mentioned classifiers, we experimented with more models tha
 
 Though we initially considered reducing the dimensionality by performing principal component analysis, after some substantial scrutiny of the feature space we dropped it. The rhythm bands, pitch classes and the timbre coefficients we spread out across the statistics to discard.
 
-\subsection*{Performance Metrics}~\\
-Evaluation of all the models designed was done using the $k$-fold cross validation technique (with $k=5$).
-
-For splitting the data into folds we used stratified process of preserving the percentage of samples for each genre thereby enabling fair evaluation.
 %------------------------------------------------
 
 %------------------------------------------------
