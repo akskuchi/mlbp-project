@@ -71,7 +71,7 @@
 %----------------------------------------------------------------------------------------
 
 \begin{document}
-  \boldmath
+\boldmath
 
 \flushbottom % Makes all text pages the same height
 
@@ -157,7 +157,6 @@ just discard features that do not have sufficient contribution to the total vari
   \caption{Variance explained by principal components}
   \label{fig:pca}
 \end{figure}
-
 
 \section{Methods and Experiments} % The \section*{} command stops section numbering
 
@@ -294,14 +293,14 @@ Performance measures of the above experiments when evaluated with the test data.
 
 \subsection{Accuracy, Log-Loss statistics}
 \begin{itemize}
-  \item Logistic Regression Classifier across various values for its parameters. Results for the best 5 combinations:
+\item Logistic Regression Classifier across various values for its parameters. Results for the best 5 combinations:
   \begin{table}[H]
     \caption{metrics on test data (LR)}
     \centering
     \begin{tabular}{llrr}
       \toprule
-%			\multicolumn{2}{c}{Name} \\
-%			\cmidrule(r){1-2}
+      % \multicolumn{2}{c}{Name} \\
+      % \cmidrule(r){1-2}
       modelling strategy & solver & accuracy & loss \\
       \midrule
       ovr & sag & $0.658$ & $0.12$ \\
@@ -311,9 +310,11 @@ Performance measures of the above experiments when evaluated with the test data.
       ovr & newton-cg & $0.646$ & $0.26$ \\
       \bottomrule
     \end{tabular}
-    \label{tab:label}
+    % \label{tab:label}
   \end{table}
-  \item Support vector classifiers across various values for its parameters. Results for the best 5 combinations:
+
+\item Support vector classifiers across various values for its parameters. Results for the best 5 combinations:
+
   \begin{table}[H]
     \caption{metrics on test data (SVC)}
     \centering
@@ -330,7 +331,7 @@ Performance measures of the above experiments when evaluated with the test data.
       ovr & poly (degree 3) & $0.567$ & $0.36$ \\
       \bottomrule
     \end{tabular}
-    \label{tab:label}
+    % \label{tab:label}
   \end{table}
   \item Ensemble classifier with best parametric combination of logistic regression, SVC and voting strategy produces
   $$accuracy = 0.631, loss = 0.09$$
@@ -348,7 +349,7 @@ Performance measures of the above experiments when evaluated with the test data.
       rbf & $\gamma=0.001$ & $0.612$ & $0.29$ \\
       \bottomrule
     \end{tabular}
-    \label{tab:label}
+    % \label{tab:label}
   \end{table}
 \end{itemize}
 
@@ -361,6 +362,27 @@ The following confusion matrix represents the accuracy of classification. It is 
 The matrix entry $i$, $j$ is the number of songs actually in genre $i$, but predicted to be genre $j$. Darker the blue, accurate the classification.
 
 \section{Discussion}
+
+% * Relevance of the performance measures (acc/logloss) for imbalanced multiclass
+% ** with accuracy there's clearly a problem: relatively high acc. can be achieved
+% by predicting just class 1
+% ** TODO: what happens with logloss?
+% ** mention that we used class weights param based on the class dist plotted in
+% data analysis
+% ** results: performance was better with uniform class dist
+% ** conclusion: class dist. of test data is not similar to test data
+
+% * how the results relate to the literature
+% ** no idea what we should do here
+
+% * suggestions for future research/improvements
+% ** further research unsupervised methods: it should be good when small sample
+% and many features
+% ** work with ensemble: it doesn't match our intuition/experience that
+% *** many top performing teams used this
+% combination of good classifiers is a bad classifiers
+% *** didn't test on kaggle data -> maybe validation set was not representative?
+
 
 %----------------------------------------------------------------------------------------
 
