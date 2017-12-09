@@ -230,56 +230,56 @@ Performance measures of the above experiments when evaluated with the test data.
 \begin{itemize}
 	\item Logistic Regression Classifier across various values for its parameters. Results for the best 5 combinations:
 	\begin{table}[H]
-		\caption{Accuracy on test data (LR)}
+		\caption{metrics on test data (LR)}
 		\centering
-		\begin{tabular}{lllr}
+		\begin{tabular}{llrr}
 			\toprule
 %			\multicolumn{2}{c}{Name} \\
 %			\cmidrule(r){1-2}
-			modelling strategy & solver & weights & accuracy\\ 
+			modelling strategy & solver & accuracy & loss \\ 
 			\midrule
-			ovr & sag & None & $0.658$ \\
-			multinomial & sag & None & $0.653$ \\
-			ovr & liblinear & None & $0.650$ \\
-			ovr & lbfgs & None & $0.646$ \\
-			ovr & newton-cg & None & $0.646$ \\
+			ovr & sag & $0.658$ & $0.12$ \\
+			multinomial & sag & $0.653$ & $0.17$ \\
+			ovr & liblinear & $0.650$ & $0.21$ \\
+			ovr & lbfgs & $0.646$ & $0.26$ \\
+			ovr & newton-cg & $0.646$ & $0.26$ \\
 			\bottomrule
 		\end{tabular}
 		\label{tab:label}
 	\end{table}
 	\item Support vector classifiers across various values for its parameters. Results for the best 5 combinations:
 	\begin{table}[H]
-		\caption{Accuracy on test data (SVC)}
+		\caption{metrics on test data (SVC)}
 		\centering
-		\begin{tabular}{lllr}
+		\begin{tabular}{llrr}
 			\toprule
 			%			\multicolumn{2}{c}{Name} \\
 			%			\cmidrule(r){1-2}
-			modelling strategy & kernel & weights & accuracy\\ 
+			modelling strategy & kernel & accuracy & loss \\ 
 			\midrule
-			multinomial & rbf & None & $0.636$ \\
-			ovr & rbf & None & $0.636$ \\
-			multinomial & linear & None & $0.607$ \\
-			ovr & linear & None & $0.607$ \\
-			ovr & poly (degree 3) & None & $0.567$ \\
+			multinomial & rbf & $0.636$ & $0.07$ \\
+			ovr & rbf & $0.636$ & $0.07$ \\
+			multinomial & linear & $0.607$ & $0.20$ \\
+			ovr & linear & $0.607$ & $0.20$ \\
+			ovr & poly (degree 3) & $0.567$ & $0.36$ \\
 			\bottomrule
 		\end{tabular}
 		\label{tab:label}
 	\end{table}
-	\item Ensemble classifier with best parametric combination of logistic regression, SVC and voting strategy produces an accuracy:
-	$$=0.631$$
+	\item Ensemble classifier with best parametric combination of logistic regression, SVC and voting strategy produces
+	$$accuracy = 0.631, loss = 0.09$$
 	\item Semi-supervised classifier with label spreading:
 	\begin{table}[H]
-		\caption{Accuracy on test data (semi-supervised)}
+		\caption{metrics on test data (semi-supervised)}
 		\centering
-		\begin{tabular}{llr}
+		\begin{tabular}{llrr}
 			\toprule
 			%			\multicolumn{2}{c}{Name} \\
 			%			\cmidrule(r){1-2}
-			kernel & attribute & accuracy\\ 
+			kernel & attribute & accuracy & loss\\ 
 			\midrule
-			knn & neighbours(300) & $0.533$ \\
-			rbf & $\gamma=0.001$ & $0.612$ \\
+			knn & neighbours(300) & $0.533$ & $0.14$ \\
+			rbf & $\gamma=0.001$ & $0.612$ & $0.29$ \\
 			\bottomrule
 		\end{tabular}
 		\label{tab:label}
@@ -287,9 +287,12 @@ Performance measures of the above experiments when evaluated with the test data.
 \end{itemize}
 
 \subsection{Confusion matrix}
+The following confusion matrix represents the accuracy of classification. It is evident that the prediction is directly influenced by the frequency of respective genres in the training data.
 \begin{figure}[H]
 	\includegraphics[width=\linewidth]{confusion-matrix.jpg}
 \end{figure}
+
+The matrix entry $i$, $j$ is the number of songs actually in genre $i$, but predicted to be genre $j$. Darker the blue, accurate the classification.
 
 \section{Discussion}
 
