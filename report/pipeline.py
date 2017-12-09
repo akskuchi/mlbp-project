@@ -1,14 +1,17 @@
-from sklearn.cross_validation import train_test_split
+from sklearn.cross_validation 
+	import train_test_split
 from sklearn.pipeline import Pipeline
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
-from sklearn.linear_model import LogisticRegressionCV
+from sklearn.linear_model 
+	import LogisticRegressionCV
 
 import load_data
 
 X, y = load_data()
 
-X_train, X_test, y_train, y_test = train_test_split(X, y)
+X_train, X_test, y_train, y_test = 
+	train_test_split(X, y)
 
 classifier = Pipeline([
     ('std', StandardScaler()),
