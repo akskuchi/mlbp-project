@@ -26,7 +26,7 @@
 
 \usepackage{lipsum} % Required to insert dummy text. To be removed otherwise
 \usepackage{float}
-\usepackage{listings}
+\usepackage{pythonhighlight}
 
 % ----------------------------------------------------------------------------------------
 %	COLUMNS
@@ -59,8 +59,12 @@
 \Archive{Aalto University} % Additional notes (e.g. copyright, DOI, review/research article)
 
 \PaperTitle{Comparison of learning models for music genre classification} % Article title
-
-\Authors{}  % Anonymous
+\Authors{}  % Anonymous% Student\textsuperscript{1}, Student\textsuperscript{2}} % Authors
+\affiliation{\textsuperscript{1}\textit{}} % Author affiliation
+\affiliation{\textsuperscript{2}\textit{}} % Author affiliation
+%\affiliation{\textbf{Corresponding author}: john@smith.com} % Corresponding author
+\Keywords{Keyword1 --- Keyword2 --- Keyword3} % Keywords - if you don't want any simply remove all the text between the curly brackets
+\newcommand{\keywordname}{Keywords} % Defines the keywords heading name
 
 %----------------------------------------------------------------------------------------
 %	ABSTRACT
@@ -76,9 +80,7 @@
 \flushbottom % Makes all text pages the same height
 
 \maketitle % Print the title and abstract box
-
 \tableofcontents % Print the contents section
-
 \thispagestyle{empty} % Removes page numbering from the first page
 
 %----------------------------------------------------------------------------------------
@@ -130,7 +132,7 @@ the data set might be the limiting factor. We could overcome this by finding a
 subset of the original features that preserve the information of 264 features.
 Since the feature space includes multiple statistics of rhythm and chroma, there
 could be some correlation that could be exploited to reduce the dimensionality.
-The correlation heatmap for the training data in figure \ref{fig:heatmap} shows
+The correlation heat-map for the training data in figure \ref{fig:heatmap} shows
 that there is indeed some correlation and especially the seven rhythm statistics
 are nicely separable.
 
@@ -165,7 +167,7 @@ In order to experiment with different ideas and approaches it is important to
 set up a machine learning pipeline. Such pipeline should take the raw data as input and produce
 an accurate description of the quality of the underlying classifier and the
 classification output when desired. Ideally this pipeline can easily be used to
-test different classifiers and also to find sufficient hyperparameters for them.
+test different classifiers and also to find sufficient hyper-parameters for them.
 Another desirable qualities are speed and accurate estimations of the
 performance. This section describes how we set up our pipeline and what were the
 most promising approaches we came up with.
@@ -175,10 +177,10 @@ most promising approaches we came up with.
 We used pandas framework to read and write the csv-files and relied
 heavily on scikit-learn to build a robust machine learning pipeline that could
 effortlessly be used to try different preprocessing steps and machine learning
-algorithms with sufficient hyperparameters. An example of such pipeline using
+algorithms with sufficient hyper-parameters. An example of such pipeline using
 logistic regression classifier is provided in appendix \ref{sklearn-example}
 
-As was mentioned in the previous section, the set of labeled data points is
+As was mentioned in the previous section, the set of labelled data points is
 relatively small when considering the classification task. Therefore we decided
 to use cross-validation instead of a separate validation set. To be more
 specific, we used stratified k-fold that takes into account the
@@ -186,16 +188,16 @@ unbalanced class weights. There is no single configuration which we used since w
 had to do some modifications in order to find the right balance between variance
 and performance. One of these configurations, for example, was to use 5x3
 cross-validation where the data was split into five folds and then the data of
-the four training folds was once again split into three folds out of which two
-were used to train the model and one was used to optimize the hyperparameters.
-This approach resulted in good hyperparameter values and an accurate estimation
-of the performance.
+the four training
+folds was once again split into three folds out of which two were used to train the
+model and one was used to optimize the hyper-parameters. This approach resulted
+in good hyper-parameter values and an accurate estimation of the performance.
 
 All in all, our pipeline consists of reading the csv file, splitting the data into
 appropriate training and validation sets, standardizing the data, possibly reducing
 the dimensionality and then training and tuning a classifier. The tuned
 classifier is then either described by some performance metrics or it is used to
-label the unlabeled data. We relied heavily on this pipeline to evaluate the
+label the unlabelled data. We relied heavily on this pipeline to evaluate the
 performance of a classifier instead of submitting the results of every
 prominent classifier to the Kaggle competition. As a result we might have
 overlooked some classifier that has been rated against an undesirable or
@@ -207,11 +209,23 @@ with a real-life machine learning problem.
 Our goal is to accurately predict the genre of a song but also to have highest
 possible confidence in our prediction. For the first goal a single label must be
 predicted for each unlabeled song and the performance is measured by categorical
-accuracy which is illustrated in equation \ref{eq:accuracy}
+accuracy which is illustrated in equation~\ref{eq:accuracy}.
 
 \begin{equation} \label{eq:accuracy}
   \text{accuracy} = \frac{| y_{\text{true}} = y_{\text{predicted}}|}{N}
 \end{equation}
+
+In order to measure the confidence of a prediction the output must have ten
+predictions where $i$th prediction corresponds to the probability of the data
+point belonging to the $i$th category. The classification cost can then be
+computed using equation~\ref{eq:logloss}.
+
+\begin{equation} \label{eq:logloss}
+  \text{logloss} = - \frac{1}{N} \sum_{i=1}^N \sum_{j=1}^M y_{i, j} \log(p_{i, j})
+\end{equation}
+
+It should be noted that in the following subsection we will be optimizing the
+classifier so that it will perform well on both of these tasks.
 
 \subsection{Algorithms and methods}
 
@@ -402,10 +416,11 @@ learning pipeline in scikit-learn assuming \textit{load\_data} is a function tha
 loads the data set. \textit{LogisticRegressionCV} is a class that trains a
 logistic regression classifier using all the listed C-values and uses the
 best-performing classifier to calculate accuracy on the test set. A similar
-class that can be used to optimize hyperparameters in scikit-learn is
+class that can be used to optimize hyper-parameters in scikit-learn is
 \textit{GridSearchCV} \cite{gridsearchcv}.
 
-\lstinputlisting[language=Python]{pipeline.py}
+\inputpython{pipeline.py}{1}{26}
+
 
 %----------------------------------------------------------------------------------------
 %	REFERENCE LIST
@@ -413,16 +428,12 @@ class that can be used to optimize hyperparameters in scikit-learn is
 
 \phantomsection
 \begin{thebibliography}{2}
-  % TODO: I would say it is better to have plaintext links instead of href
-  % anyways let's make these consistent before submitting
-  % (see todo about making appendix and references normal 1 column page)
 
 \bibitem{label-spreading}
   \href{http://scikit-learn.org/stable/modules/generated/sklearn.semi\_supervised.LabelSpreading.html}{semi-supervised learning,}
 
 \bibitem{gridsearchcv}
-  \textit{GridSearchCV}, \\
-  \texttt{http://scikit-learn.org/stable/modules/generated/sklearn.model\_selection.GridSearchCV.html}
+  \href{http://scikit-learn.org/stable/modules/generated/sklearn.model\_selection.GridSearchCV.html}{GridSearchCV}, \\
 \end{thebibliography}
 
 %----------------------------------------------------------------------------------------
