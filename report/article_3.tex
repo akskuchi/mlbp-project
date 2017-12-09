@@ -26,7 +26,9 @@
 
 \usepackage{lipsum} % Required to insert dummy text. To be removed otherwise
 \usepackage{float}
-%----------------------------------------------------------------------------------------
+\usepackage{listings}
+
+% ----------------------------------------------------------------------------------------
 %	COLUMNS
 %----------------------------------------------------------------------------------------
 
@@ -57,7 +59,7 @@
 
 \PaperTitle{Comparison of learning models for music genre classification} % Article title
 
-\Authors{Student\textsuperscript{1}, Student\textsuperscript{2}} % Authors
+\Authors{} % Student\textsuperscript{1}, Student\textsuperscript{2}} % Authors
 \affiliation{\textsuperscript{1}\textit{}} % Author affiliation
 \affiliation{\textsuperscript{2}\textit{}} % Author affiliation
 %\affiliation{\textbf{Corresponding author}: john@smith.com} % Corresponding author
@@ -87,13 +89,13 @@
 %----------------------------------------------------------------------------------------
 %	ARTICLE CONTENTS
 %----------------------------------------------------------------------------------------
+
 \phantomsection
 \section{Introduction} % The \section*{} command stops section numbering
 
 %\addcontentsline{toc}{section}{Introduction} % Adds this section to the table of contents
 
 \lipsum[1-3] % Dummy text
- and some mathematics $\cos\pi=-1$ and $\alpha$ in the text\footnote{And some mathematics $\cos\pi=-1$ and $\alpha$ in the text.}.
 
 %------------------------------------------------
 
@@ -112,14 +114,14 @@ class distribution has been visualized in figure \ref{fig:dist-hist} and the
 dominance of class $1$ can be clearly seen. This imbalance might be due to
 having two popular music generes, pop and rock, under one label but it can also
 be just a feature of the data set.
-% is is appropriate to discuss generalization of the class distribution here?
+% TODO: is is appropriate to discuss generalization of the class distribution here?
 Intuitively the disproportionate class distribution makes sense but for
 practical applications that have to work on any unlabeled data set, any
 assumptions can hardly be made.
 
 \begin{figure}[H]
   \includegraphics[width=\linewidth]{class-dist-hist.png}
-  \caption{Distribution of classes in the given data set}
+  \caption{Distribution of classes in the data set}
   \label{fig:dist-hist}
 \end{figure}
 
@@ -164,13 +166,59 @@ just discard features that do not have sufficient contribution to the total vari
 
 \section{Methods and Experiments} % The \section*{} command stops section numbering
 
+In order to experiment with different ideas and approaches it is important to
+set up a machine learning pipeline. Such pipeline should take the raw data as input and produce
+an accurate description of the quality of the underlying classifier and the
+classification output when desired. Ideally this pipeline can easily be used to
+test different classifiers and also to find sufficient hyperparameters for them.
+Another desirable qualities are speed and accurate estimations of the
+performance. This section describes how we set up our pipeline and what were the
+most promising approaches we came up with.
+
+\subsection{Pipeline and evaluation methodology}
+
+We used pandas framework to read and write the csv-files and relied
+heavily on scikit-learn to build a robust machine learning pipeline that could
+effortlessly be used to try different preprocessing steps and machine learning
+algorithms with sufficient hyperparameters. An example of such pipeline using
+logistic regression classifier is provided in appendix [ref]
+% TODO: add code to appendix and refer to it
+
+As was mentioned in the previous section, the set of labeled data points is
+relatively small when considering the classification task. Therefore we decided
+to use cross-validation instead of a separate validation set. To be more
+specific, we used stratified k-fold that takes into account the
+unbalanced class weights. There is no single configuration which we used since we
+had to do some modifications in order to find the right balance between variance
+and performance. One of these configurations, for example, was to use 5x3
+cross-validation where the data was split into five folds and then the data of
+the four training
+folds was once again split into three folds out of which two were used to train the
+model and one was used to optimize the hyperparameters. This approach resulted
+in good hyperparameter values and an accurate estimation of the performance.
+
+All in all, our pipeline consists of reading the csv file, splitting the data into
+appropriate training and validation sets, standardizing the data, possibly reducing
+the dimensionality and then training and tuning a classifier. The tuned
+classifier is then either described by some performance metrics or it is used to
+label the unlabeled data. We relied heavily on this pipeline to evaluate the
+performance of a classifier instead of submitting the results of every
+prominent classifier to the Kaggle competition. As a result we might have
+overlooked some classifier that has been rated against an undesirable or
+unrepresentative validation set. However, this approach is more likely to work
+with a real-life machine learning problem.
+
+\subsection{Algorithms and methods}
+
+% TODO: List the following algos/methods as subsubsections?
+
 %\addcontentsline{toc}{section}{Methods and Experiments} % Adds this section to the table of contents
 \underline{Fundamental intuition for choosing models:} Multi-class classification being the underlying aspect of the problem statement, we turned to learning models which constitute this feature.
 
 \subsection{Logistic Regression}~\\
 \underline{Motivation:} Logistic regression though by nature the default for binary classification, the fact that it can be extended for multi-class models was the motivation for choosing it.
 
-Our model predicted the probabilities of different possible genres (labels) corresponding to a given feature space (see the data analysis section). For each of the multi-classification modelling techniques [one-vs-one - $ovo$, one-vs-all - $ovr$], we empirically used various algorithms as solvers (like stochastic average gradient) and consecutively varied the following parameters.
+Our model predicted the probabilities of different possible genres (labels) corresponding to a given feature space (see the data analysis section). For each of the multi-classification modelling techniques [one-vs-one - $ovo$, one-vs-all - $ova$], we empirically used various algorithms as solvers (like stochastic average gradient) and consecutively varied the following parameters.
 \begin{itemize}
   \item Maximum iterations for convergence ($100-900$)
   \item Initial class weights (balanced weighing, initializing to $1$)
@@ -320,13 +368,28 @@ The matrix entry $i$, $j$ is the number of songs actually in genre $i$, but pred
 \section{Discussion}
 
 %----------------------------------------------------------------------------------------
-\section{Appendices}
 
-Thank you! Google!
+\section{Appendices}
+% TODO: for appendix and reference list we don't want two columns
+
+\subsection{Pipeline using scikit-learn}
+
+The following code snippet illustrates how easy it is to set up a machine
+learning pipeline in scikit-learn assuming \textit{load\_data} is a function that
+loads the data set. \textit{LogisticRegressionCV} is a class that trains a
+logistic regression classifier using all the listed C-values and uses the
+best-performing classifier to calculate accuracy on the test set. A similar
+class that can be used to optimize hyperparameters in scikit-learn is
+\textit{GridSearchCV}.           %TODO ref to scikit-learn docs
+
+\lstinputlisting[language=Python]{pipeline.py}
+
+
 
 %----------------------------------------------------------------------------------------
 %	REFERENCE LIST
 %----------------------------------------------------------------------------------------
+
 \phantomsection
 \begin{thebibliography}{1}
 \bibitem{label-spreading}
