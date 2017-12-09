@@ -3,16 +3,17 @@
 \contentsline {section}{\numberline {2}Data Analysis}{2}{section.2}
 \contentsline {section}{\numberline {3}Methods and Experiments}{2}{section.3}
 \contentsline {subsection}{\numberline {3.1}Pipeline and evaluation methodology}{3}{subsection.3.1}
-\contentsline {subsection}{\numberline {3.2}Algorithms and methods}{3}{subsection.3.2}
-\contentsline {subsection}{\numberline {3.3}Logistic Regression}{3}{subsection.3.3}
-\contentsline {subsection}{\numberline {3.4}Support Vector Machines}{3}{subsection.3.4}
-\contentsline {subsection}{\numberline {3.5}Ensemble Classifier}{4}{subsection.3.5}
-\contentsline {subsection}{\numberline {3.6}Semi-Supervised Classifier}{4}{subsection.3.6}
+\contentsline {subsection}{\numberline {3.2}Performance Metrics}{3}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.3}Algorithms and methods}{3}{subsection.3.3}
+\contentsline {subsubsection}{\numberline {3.3.1}Logistic Regression}{3}{subsubsection.3.3.1}
+\contentsline {subsubsection}{\numberline {3.3.2}Support Vector Machines}{4}{subsubsection.3.3.2}
+\contentsline {subsubsection}{\numberline {3.3.3}Ensemble Classifier}{4}{subsubsection.3.3.3}
+\contentsline {subsubsection}{\numberline {3.3.4}Semi-Supervised Classifier}{4}{subsubsection.3.3.4}
 \contentsline {section}{\numberline {4}Results}{4}{section.4}
 \contentsline {subsection}{\numberline {4.1}Accuracy, Log-Loss statistics}{4}{subsection.4.1}
 \contentsline {subsection}{\numberline {4.2}Confusion matrix}{5}{subsection.4.2}
 \contentsline {section}{\numberline {5}Discussion}{5}{section.5}
 \contentsline {section}{\numberline {6}Appendices}{5}{section.6}
 \contentsline {subsection}{\numberline {6.1}Pipeline using scikit-learn}{5}{subsection.6.1}
-\contentsline {section}{References}{5}{section*.9}
+\contentsline {section}{References}{6}{section*.9}
 \contentsfinish 

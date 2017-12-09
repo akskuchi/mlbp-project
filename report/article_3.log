@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99998 (TeX Live 2017) (preloaded format=xelatex 2017.9.14)  9 DEC 2017 22:33
+This is XeTeX, Version 3.14159265-2.6-0.99998 (TeX Live 2017) (preloaded format=xelatex 2017.9.14)  10 DEC 2017 00:10
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -671,7 +671,11 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \@float@everytoks=\toks27
 \@floatcapt=\box47
 )
-(/usr/local/texlive/2017/texmf-dist/tex/latex/listings/listings.sty
+(/usr/local/texlive/2017/texmf-dist/tex/latex/pythonhighlight/pythonhighlight.s
+ty
+Package: pythonhighlight 2017/02/09 python code highlighting; provided by Olivi
+er Verdier <olivier.verdier@gmail.com>
+ (/usr/local/texlive/2017/texmf-dist/tex/latex/listings/listings.sty
 \lst@mode=\count163
 \lst@gtempboxa=\box48
 \lst@token=\toks28
@@ -695,12 +699,8 @@ File: lstmisc.sty 2015/06/04 1.6 (Carsten Heinz)
 File: listings.cfg 2015/06/04 1.6 listings configuration
 ))
 Package: listings 2015/06/04 1.6 (Carsten Heinz)
-
-(/usr/local/texlive/2017/texmf-dist/tex/latex/pythonhighlight/pythonhighlight.s
-ty
-Package: pythonhighlight 2017/02/09 python code highlighting; provided by Olivi
-er Verdier <olivier.verdier@gmail.com>
-) (/usr/local/texlive/2017/texmf-dist/tex/latex/hyperref/hyperref.sty
+)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/hyperref/hyperref.sty
 Package: hyperref 2017/03/14 v6.85a Hypertext links for LaTeX
 
 (/usr/local/texlive/2017/texmf-dist/tex/generic/oberdiek/hobsub-hyperref.sty
@@ -826,9 +826,9 @@ tly
 )
 \Hy@SectionHShift=\skip68
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 52.
-Package hyperref Info: Option `breaklinks' set `true' on input line 52.
-Package hyperref Info: Option `bookmarksopen' set `false' on input line 52.
+Package hyperref Info: Option `colorlinks' set `true' on input line 51.
+Package hyperref Info: Option `breaklinks' set `true' on input line 51.
+Package hyperref Info: Option `bookmarksopen' set `false' on input line 51.
 
 (/usr/local/texlive/2017/texmf-dist/tex/generic/oberdiek/se-ascii-print.def
 File: se-ascii-print.def 2016/05/16 v1.11 stringenc: Printable ASCII characters
@@ -837,24 +837,24 @@ File: se-ascii-print.def 2016/05/16 v1.11 stringenc: Printable ASCII characters
 (./article_3.aux)
 \openout1 = `article_3.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 78.
-LaTeX Font Info:    ... okay on input line 78.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 78.
-LaTeX Font Info:    ... okay on input line 78.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 78.
-LaTeX Font Info:    ... okay on input line 78.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 78.
-LaTeX Font Info:    ... okay on input line 78.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 78.
-LaTeX Font Info:    ... okay on input line 78.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 78.
-LaTeX Font Info:    ... okay on input line 78.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 78.
-LaTeX Font Info:    ... okay on input line 78.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 78.
-LaTeX Font Info:    ... okay on input line 78.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 78.
-LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 77.
+LaTeX Font Info:    ... okay on input line 77.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 77.
+LaTeX Font Info:    ... okay on input line 77.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 77.
+LaTeX Font Info:    ... okay on input line 77.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 77.
+LaTeX Font Info:    ... okay on input line 77.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 77.
+LaTeX Font Info:    ... okay on input line 77.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 77.
+LaTeX Font Info:    ... okay on input line 77.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 77.
+LaTeX Font Info:    ... okay on input line 77.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 77.
+LaTeX Font Info:    ... okay on input line 77.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 77.
+LaTeX Font Info:    ... okay on input line 77.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: xetex
@@ -897,8 +897,8 @@ Package caption Info: listings package is loaded.
 Package caption Info: End \AtBeginDocument code.
 Package lastpage Info: Please have a look at the pageslts package at
 (lastpage)             https://www.ctan.org/pkg/pageslts
-(lastpage)             ! on input line 78.
-LaTeX Info: Redefining \microtypecontext on input line 78.
+(lastpage)             ! on input line 77.
+LaTeX Info: Redefining \microtypecontext on input line 77.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
 Package microtype Info: No adjustment of tracking.
@@ -1545,7 +1545,7 @@ Package microtype Warning: Unknown slot number of character
 
 \c@lstlisting=\count183
 \AtBeginShipoutBox=\box51
-Package hyperref Info: Link coloring ON on input line 78.
+Package hyperref Info: Link coloring ON on input line 77.
 (/usr/local/texlive/2017/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 
@@ -1554,9 +1554,9 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count184
 )
-LaTeX Info: Redefining \ref on input line 78.
-LaTeX Info: Redefining \pageref on input line 78.
-LaTeX Info: Redefining \nameref on input line 78.
+LaTeX Info: Redefining \ref on input line 77.
+LaTeX Info: Redefining \pageref on input line 77.
+LaTeX Info: Redefining \nameref on input line 77.
 
 (./article_3.out) (./article_3.out)
 \@outlinefile=\write3
@@ -1564,13 +1564,13 @@ LaTeX Info: Redefining \nameref on input line 78.
 
 
 
-Package mathptmx Warning: There are no bold math fonts on input line 79.
+Package mathptmx Warning: There are no bold math fonts on input line 78.
 
 Package microtype Info: Loading generic settings for font family
 (microtype)             `lmss' (encoding: TU).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-LaTeX Font Info:    Try loading font information for OT1+ztmcm on input line 84
+LaTeX Font Info:    Try loading font information for OT1+ztmcm on input line 83
 .
 (/usr/local/texlive/2017/texmf-dist/tex/latex/psnfss/ot1ztmcm.fd
 File: ot1ztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OT1/ztmcm.
@@ -1579,39 +1579,39 @@ Package microtype Info: Loading generic settings for font family
 (microtype)             `ztmcm' (encoding: OT1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-LaTeX Font Info:    Try loading font information for OML+ztmcm on input line 84
+LaTeX Font Info:    Try loading font information for OML+ztmcm on input line 83
 .
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/psnfss/omlztmcm.fd
 File: omlztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OML/ztmcm.
 )
-LaTeX Font Info:    Try loading font information for OMS+ztmcm on input line 84
+LaTeX Font Info:    Try loading font information for OMS+ztmcm on input line 83
 .
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/psnfss/omsztmcm.fd
 File: omsztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMS/ztmcm.
 )
-LaTeX Font Info:    Try loading font information for OMX+ztmcm on input line 84
+LaTeX Font Info:    Try loading font information for OMX+ztmcm on input line 83
 .
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/psnfss/omxztmcm.fd
 File: omxztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMX/ztmcm.
 )
-LaTeX Font Info:    Try loading font information for OT1+ptm on input line 84.
+LaTeX Font Info:    Try loading font information for OT1+ptm on input line 83.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/psnfss/ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 )
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 84.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 83.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/microtype/mt-ptm.cfg
 File: mt-ptm.cfg 2006/04/20 v1.7 microtype config. file: Times (RS)
 )
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7.4> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 84.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 83.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 84.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 83.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
@@ -1620,83 +1620,88 @@ File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 84.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 83.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <5> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 84.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 83.
 LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <8> not available
-(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 84.
+(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 83.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 84.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 83.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 84.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 83.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 84.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 83.
 
 (./article_3.toc)
 \tf@toc=\write4
 \openout4 = `article_3.toc'.
 
 
-Overfull \hbox (4.26456pt too wide) in paragraph at lines 96--96
-\TU/lmr/m/n/10 ligula aliquet magna, vitae ornare odio metus a mi. Morbi
+Overfull \hbox (0.62213pt too wide) in paragraph at lines 97--98
+\TU/lmr/m/n/10 maps it to a probability $\OML/ztmcm/m/it/10 h\OT1/ztmcm/m/n/10 
+(\OML/ztmcm/m/it/10 x\OT1/ztmcm/m/n/10 )$ \TU/lmr/m/n/10 that the genre is “roc
+k”(e.g.)
  []
 
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Overfull \hbox (4.22256pt too wide) in paragraph at lines 102--103
+[]\TU/lmr/m/n/10 understand the end-to-end process of machine learn-
+ []
 
- [1
+[1
 
 
 ]
 File: class-dist-hist.png Graphic file (type QTm)
-
-<use  "class-dist-hist.png" >
+ <use  "class-dist-hist.png" >
 File: heatmap.png Graphic file (type QTm)
  <use  "heatmap.png" >
 File: pca.png Graphic file (type QTm)
  <use  "pca.png" >
-Overfull \hbox (6.45255pt too wide) in paragraph at lines 166--174
+Overfull \hbox (6.45255pt too wide) in paragraph at lines 182--190
 \TU/lmr/m/n/10 In order to experiment with different ideas and approaches
  []
 
 
-Overfull \hbox (12.49257pt too wide) in paragraph at lines 166--174
+Overfull \hbox (12.49257pt too wide) in paragraph at lines 182--190
 \TU/lmr/m/n/10 ferent classifiers and also to find sufficient hyper-parameters
  []
 
-[2] [3]
-Overfull \hbox (3.20256pt too wide) in paragraph at lines 250--252
+[2]
+Underfull \vbox (badness 2556) has occurred while \output is active []
+
+ [3]
+Overfull \hbox (3.20256pt too wide) in paragraph at lines 286--288
 []$ \TU/lmr/m/n/10 After experimenting with the above two mod-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 255--256
+Underfull \hbox (badness 10000) in paragraph at lines 291--292
 
  []
 
 
-Overfull \hbox (0.91257pt too wide) in paragraph at lines 259--261
+Overfull \hbox (0.91257pt too wide) in paragraph at lines 295--297
 []\TU/lmr/m/n/10 We chose the label-spreading strategy over label prop-
  []
 
 
-Overfull \hbox (19.07257pt too wide) in paragraph at lines 263--264
+Overfull \hbox (19.07257pt too wide) in paragraph at lines 299--300
 []\TU/lmr/m/n/10 Training the classifier/kernel chosen for label-spreading
  []
 
 
-Overfull \hbox (3.34254pt too wide) in paragraph at lines 264--265
+Overfull \hbox (3.34254pt too wide) in paragraph at lines 300--301
 []\TU/lmr/m/n/10 Scoring/validating the trained model using the split
  []
 
-
-Overfull \hbox (8.7725pt too wide) in paragraph at lines 324--338
+[4]
+Overfull \hbox (8.7725pt too wide) in paragraph at lines 356--370
  [][] 
  []
 
-[4]
 File: confusion-matrix.jpg Graphic file (type QTm)
- <use  "confusion-matrix.jpg" >
+<use  "confusion-matrix.jpg" > [5]
 (/usr/local/texlive/2017/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2015/06/04 1.6 listings language file
 )
@@ -1708,28 +1713,25 @@ Package microtype Info: Loading generic settings for font family
 (./pipeline.py
 LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <8> not available
 (Font)              Font shape `TU/lmtt/b/n' tried instead on input line 1.
-)
-Underfull \hbox (badness 10000) in paragraph at lines 423--424
-
- []
-
-
+) 
 AED: lastpage setting LastPage
-[5]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 429.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 429.
+[6
+
+]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 478.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 478.
  (./article_3.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 429.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 429.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 429.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 478.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 478.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 478.
  ) 
 Here is how much of TeX's memory you used:
- 24525 strings out of 493005
- 437824 string characters out of 6134596
- 735925 words of memory out of 5000000
- 28243 multiletter control sequences out of 15000+600000
- 29104 words of font info for 99 fonts, out of 8000000 for 9000
+ 24549 strings out of 493005
+ 438359 string characters out of 6134596
+ 784871 words of memory out of 5000000
+ 28261 multiletter control sequences out of 15000+600000
+ 29128 words of font info for 102 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 43i,11n,51p,10433b,1864s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 43i,11n,51p,10433b,1470s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on article_3.pdf (5 pages).
+Output written on article_3.pdf (6 pages).

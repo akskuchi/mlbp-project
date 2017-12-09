@@ -92,7 +92,23 @@
 
 %\addcontentsline{toc}{section}{Introduction} % Adds this section to the table of contents
 
-\lipsum[1-3] % Dummy text
+The project revolves around the task of identifying the music genre of songs.This is useful as a way to group music into categories that can be useful for recommendation or discovery. The problem of music genre classification is difficult. Though some genres can be distinguished in a fairly straightforward procedure (e.g. heavy metal vs classical), others are fuzzier (\textit{e.g.} rock vs blues).
+
+In this analysis project, we constructed a predictor $h(x)$ for each genre $Y$, which takes the features $x$ and maps it to a probability $h(x)$ that the genre is \textquotedblleft rock\textquotedblright (e.g.) or not. We experimented with different machine learning methods, for predicting the music genre of songs. The dataset which is provided for this task contains preprocessed audio information. In particular, the raw audio signals have been transformed to carefully chosen features.
+
+The data set (song features, genres) is detailed in the data analysis section. Before undertaking this we wanted to:
+\begin{itemize}
+	\item explore practically various models (classifiers) we learned in theory
+	\item understand the end-to-end process of machine learning
+	\item get comfortable with the available libraries
+	\item learn how to contextually visualise/analyse relationships between data
+\end{itemize}
+
+During the course of the project we were able to perceive many subtleties involved with building models. One such significant aspect is the importance of knowledge on feature extraction process.
+
+Though there are methods for inspecting and studying the obtained data, we figured that the basis on which this procurement happens would certainly influence every minute decision made throughout the design process.
+
+The effects due to lack of this major information availability is apparent in the metrics detailed in the further sections.
 
 %------------------------------------------------
 
