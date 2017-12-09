@@ -382,6 +382,15 @@ The matrix entry $i$, $j$ is the number of songs actually in genre $i$, but pred
 
 \section{Discussion}
 
+As the data analysis section illustrated, we have been working with data that
+has unequal class distribution: the amount of pop/rock songs is prominent.
+However, since the sample of labelled data is relatively small and we do not
+know how the training data or the testing data is sampled there is no reason to
+strongly believe that class distribution of the training data generalizes to the
+testing data. Also our experiments with the data advocate this view since both
+the accuracy and logistic loss classifiers had better performance with uniform
+class distribution than with the class distribution of the training data.
+
 % * Relevance of the performance measures (acc/logloss) for imbalanced multiclass
 % ** with accuracy there's clearly a problem: relatively high acc. can be achieved
 % by predicting just class 1
