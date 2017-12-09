@@ -384,39 +384,44 @@ The matrix entry $i$, $j$ is the number of songs actually in genre $i$, but pred
 
 As the data analysis section illustrated, we have been working with data that
 has unequal class distribution: the amount of pop/rock songs is prominent.
-However, since the sample of labelled data is relatively small and we do not
+Since the sample of labelled data is relatively small and we do not
 know how the training data or the testing data is sampled there is no reason to
 strongly believe that class distribution of the training data generalizes to the
 testing data. Also our experiments with the data advocate this view since both
 the accuracy and logistic loss classifiers had better performance with uniform
 class distribution than with the class distribution of the training data.
 
-% * Relevance of the performance measures (acc/logloss) for imbalanced multiclass
-% ** with accuracy there's clearly a problem: relatively high acc. can be achieved
-% by predicting just class 1
-% ** TODO: what happens with logloss?
-% ** mention that we used class weights param based on the class dist plotted in
-% data analysis
-% ** results: performance was better with uniform class dist
-% ** conclusion: class dist. of test data is not similar to test data
+The biased class distribution, however, imposes a problem on model training. The
+space of class 1 songs is known well and therefore it is likely to be
+classified as class 1 song unless it matches the specific characteristics of
+songs with some other label. This phenomena can be seen in the confusion matrix:
+a high percentage of songs not belonging to class 1 are labelled as belonging to
+class 1. In context of logloss this is equal to overestimating the probability
+of a song belonging to class 1. With logloss performance metric the negative
+effect is even higher since it is not just the highest accuracy that matters but
+every percent in the probability is counted in the cost function. There is no such
+misclassification with any other class and we see a lot of space for improvement here.
 
-% * how the results relate to the literature
-% ** no idea what we should do here
+Another interesting detail is the behaviour of the ensemble model. Our initial
+belief was that the ensemble model should be more robust to overfitting and also
+perform similarly or better in the classification task than the original
+classifiers. This belief is also supported by \cite{ensembles}. Against our
+expectations the ensemble classifier did not perform better than the individual
+classifiers. This could be due insufficient diversity between classifiers or our
+decision to rely heavily on the performance metrics obtained from
+cross-validation set. If the class distribution of the testing data is different
+from the distribution of the training set then the ensemble could actually be
+better than the individual classifiers.
 
-% * suggestions for future research/improvements
-% ** further research unsupervised methods: it should be good when small sample
-% and many features
-% ** work with ensemble: it doesn't match our intuition/experience that
-% *** many top performing teams used this
-% combination of good classifiers is a bad classifiers
-% *** didn't test on kaggle data -> maybe validation set was not representative?
-
+If we were to redo this project we would probabily tackle the problem of
+unbalanced class distribution and do some further research on semi-supervised
+learning which seems suitable approach. We could also focus on building more
+diverse and robust ensemble classifier and make better use of the possibility to
+test the classifier on data that is used to measure the performance.
 
 %----------------------------------------------------------------------------------------
 
 \section{Appendices}
-% TODO: for appendix and reference list we don't want two columns
-% also there is \appendix, is it more appropriate?
 
 \subsection{Pipeline using scikit-learn} \label{sklearn-example}
 
@@ -442,7 +447,13 @@ class that can be used to optimize hyper-parameters in scikit-learn is
   \href{http://scikit-learn.org/stable/modules/generated/sklearn.semi\_supervised.LabelSpreading.html}{semi-supervised learning,}
 
 \bibitem{gridsearchcv}
-  \href{http://scikit-learn.org/stable/modules/generated/sklearn.model\_selection.GridSearchCV.html}{GridSearchCV}, \\
+  \href{http://scikit-learn.org/stable/modules/generated/sklearn.model\_selection.GridSearchCV.html}{GridSearchCV}
+
+\bibitem{ensembles}
+  Thomas G. Dietterich.
+  Ensemble Methods in Machine Learning.
+  International Workshoop on Multiple Classifier Systems, 2000
+
 \end{thebibliography}
 
 %----------------------------------------------------------------------------------------
