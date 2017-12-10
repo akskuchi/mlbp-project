@@ -60,17 +60,19 @@
 
 \PaperTitle{Comparison of learning models for music genre classification} % Article title
 \Authors{}  % Anonymous% Student\textsuperscript{1}, Student\textsuperscript{2}} % Authors
-\affiliation{\textsuperscript{1}\textit{}} % Author affiliation
-\affiliation{\textsuperscript{2}\textit{}} % Author affiliation
+\affiliation{\textsuperscript{}\textit{}} % Author affiliation
+\affiliation{\textsuperscript{}\textit{}} % Author affiliation
 %\affiliation{\textbf{Corresponding author}: john@smith.com} % Corresponding author
-\Keywords{Keyword1 --- Keyword2 --- Keyword3} % Keywords - if you don't want any simply remove all the text between the curly brackets
+\Keywords{scikit-learn\cite{sklearn} --- heat-maps\cite{heat-maps}} % Keywords - if you don't want any simply remove all the text between the curly brackets
 \newcommand{\keywordname}{Keywords} % Defines the keywords heading name
 
 %----------------------------------------------------------------------------------------
 %	ABSTRACT
 %----------------------------------------------------------------------------------------
 
-\Abstract{\lipsum[1]~}
+\Abstract{
+	Music is categorized into subjective categories called genres. Humans have been the primary tool in attributing genre-tags to songs. Using a machine to automate this classification process is a more complex task. Machine learning excels at deciphering patterns from involuted data. We aimed to compare various machine learning models in context of music genre classification. The training dataset consisted of 4363 songs in total, unevenly distributed across genres (mostly pop-rock). Feature-space comprised of 3 categories, namely pitch, rhythm and timbre, with consideration of statistical subdivisions and bands under each category. Python is used for implementing this project specifically the scikit-learn library. Heat-maps, histograms and confusion-matrices are used to visualise data. In the data-analysis, results and discussions sections we try to emphasize on the aspects of model comparison and end-to-end design process as opposed to solving the songs classification optimally.
+}
 
 %----------------------------------------------------------------------------------------
 
@@ -457,13 +459,19 @@ class that can be used to optimize hyper-parameters in scikit-learn is
 %----------------------------------------------------------------------------------------
 
 \phantomsection
-\begin{thebibliography}{2}
+\begin{thebibliography}{5}
 
 \bibitem{label-spreading}
   \href{http://scikit-learn.org/stable/modules/generated/sklearn.semi\_supervised.LabelSpreading.html}{semi-supervised learning,}
 
 \bibitem{gridsearchcv}
-  \href{http://scikit-learn.org/stable/modules/generated/sklearn.model\_selection.GridSearchCV.html}{GridSearchCV}
+  \href{http://scikit-learn.org/stable/modules/generated/sklearn.model\_selection.GridSearchCV.html}{GridSearchCV,}
+
+\bibitem{sklearn}
+\href{http://scikit-learn.org/stable/}{scikit-learn library,}
+
+\bibitem{heat-maps}
+\href{https://en.wikipedia.org/wiki/Heat_map}{heat-maps,}
 
 \bibitem{ensembles}
   Thomas G. Dietterich.
